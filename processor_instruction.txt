@@ -1,0 +1,19 @@
+Example of server-side function file:
+```python
+import logging
+
+from common.config.config import ENTITY_VERSION
+from logic.app_init import entity_service
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+#use meta to get token
+#data is current entity data
+#in the process function you can work with current entity data, analyse it, get other entities to which current entity has reference, add new "dependant" entities
+def process_name(meta, data): //process function can accept only these parameters
+    entity = entity_service.get_item(meta["token"], some_entity_name, ENTITY_VERSION, data["id"])
+    ...
+    dependant_entity_data = data.dependant_entity_data
+    entity = entity_service.add_item(meta["token"], dependant_entity_name, ENTITY_VERSION, dependant_entity_data)
+```

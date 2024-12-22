@@ -1,0 +1,15 @@
+Example of server-side function file:
+```python
+import logging
+
+from common.config.config import ENTITY_VERSION
+from logic.app_init import entity_service
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def example_name(token, necessary parameters):
+    data = {...}// use necessary parameters
+    entity = entity_service.add_item(token, entity_name, ENTITY_VERSION, data)
+
+```
