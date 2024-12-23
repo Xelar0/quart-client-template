@@ -13,3 +13,9 @@ def example_name(token, necessary parameters):
     entity = entity_service.add_item(token, entity_name, ENTITY_VERSION, data)
 
 ```
+Example response that passes validation checks
+
+{
+  "can_proceed": false,
+  "code": "all your code here"
+}
