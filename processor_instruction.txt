@@ -16,6 +16,19 @@ def process_name(meta, data): //process function can accept only these parameter
     ...
     dependant_entity_data = data.dependant_entity_data
     entity = entity_service.add_item(meta["token"], dependant_entity_name, ENTITY_VERSION, dependant_entity_data)
+
+
+class TestSendEmailProcess(unittest.TestCase):
+#This is correct mock, common.app_init.entity_service without .add_item will not work!
+    @patch("common.app_init.entity_service.add_item")
+    def test_send_email_process(self, mock_entity_service):
+        .....
+
+
+# Uncomment the line below to run the tests when this script is executed directly
+if __name__ == '__main__':
+     unittest.main()
+
 ```
 
 Example response that passes validation checks
