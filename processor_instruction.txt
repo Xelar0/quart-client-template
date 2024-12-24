@@ -3,7 +3,7 @@ Example of server-side function file:
 import logging
 
 from common.config.config import ENTITY_VERSION
-from logic.app_init import entity_service
+from common.app_init import entity_service
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
