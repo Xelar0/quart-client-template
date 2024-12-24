@@ -1,4 +1,7 @@
-Quart==0.19.6
+Quart==0.19.9
+Hypercorn==0.17.3
+quart-cors==0.7.0
+quart-openapi==1.7.2
 jsonschema==4.23.0
 #grpc
 grpcio==1.64.1
@@ -8,3 +11,4 @@ python-dotenv==1.0.1
 requests==2.32.3
 #pandas==2.2.3
 #scikit-learn==1.5.2
+

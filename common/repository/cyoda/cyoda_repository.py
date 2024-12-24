@@ -1,14 +1,19 @@
+import json
 import threading
-from typing import List, Any
+import time
+from typing import List, Any, Optional
+
+import logging
 
 from common.config.config import API_URL
 from common.repository.crud_repository import CrudRepository
 from common.util.utils import *
 
-logger = logging.getLogger('django')
+logger = logging.getLogger('quart')
 
 
 class CyodaRepository(CrudRepository):
+
     _instance = None
     _lock = threading.Lock()  # Lock for thread safety
 
@@ -57,7 +62,13 @@ class CyodaRepository(CrudRepository):
         return self._get_by_id(meta, uuid)
 
     def find_all_by_criteria(self, meta, criteria: Any) -> Optional[Any]:
-        return self._search_entities(meta, criteria)
+        resp = self._search_entities(meta, criteria)
+        if (resp['page']['totalElements'] == 0):
+            #resp = {'page': {'number': 0, 'size': 10, 'totalElements': 0, 'totalPages': 0}}
+            return []
+        #resp = {'_embedded': {'objectNodes': [{'id': 'f04bce86-89a9-11b2-aa0c-169608d9bc9e', 'tree': {'email': '4126cf85-61b6-48ec-b7bc-89fc1999d9b9@q.q', 'name': 'test', 'role': 'Start-up', 'user_id': '1703b76f-8b2f-11ef-9910-40c2ba0ac9eb'}}]}, 'page': {'number': 0, 'size': 10, 'totalElements': 1, 'totalPages': 1}}
+        resp = resp["_embedded"]["objectNodes"]
+        return resp
 
     def save(self, meta, entity: Any) -> Any:
         return self._save_new_entities(meta, [entity])
@@ -159,9 +170,12 @@ class CyodaRepository(CrudRepository):
     def delete(self, meta, entity: Any) -> None:
         pass
 
+    def delete_by_id(self, meta, id: Any) -> None:
+        pass
+
     @staticmethod
     def _save_entity_schema(token, entity_name, version, data):
-        path = f"treeNode/model/import/JSON/SAMPLE_DATA/{entity_name}/{version}"
+        path = f"entity/JSON/TREE/{entity_name}/{version}"
 
         try:
             response = send_post_request(token=token, api_url=API_URL, path=path, data=data)

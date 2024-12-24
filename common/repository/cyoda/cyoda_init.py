@@ -10,7 +10,7 @@ def init_cyoda(token):
 
     for json_file in entity_dir.glob('*/**/*.json'):
     # Ensure the JSON file is in an immediate subdirectory
-        if json_file.parent.parent.name != entity_dir.name:
+        if json_file.parent.parent.name != entity_dir.name or json_file.parent.name != json_file.name.replace(".json", ""):
             continue
 
         try:

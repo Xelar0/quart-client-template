@@ -6,4 +6,4 @@ from common.service.service import EntityServiceImpl
 cyoda_token = authenticate()
 ai_service = AiAssistantService()
 entity_repository = CyodaRepository()
-entity_service = EntityServiceImpl()
+entity_service = EntityServiceImpl(entity_repository)
