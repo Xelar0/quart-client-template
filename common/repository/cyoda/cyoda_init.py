@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from common.config.config import ENTITY_VERSION
@@ -18,7 +19,8 @@ def init_cyoda(token):
                 entity = file.read()
                 entity_name = json_file.name.replace(".json", "")
                 if not cyoda_repository._model_exists(token, entity_name, ENTITY_VERSION):
-                    cyoda_repository._save_entity_schema(token, entity_name, ENTITY_VERSION, entity)
-                    cyoda_repository._lock_entity_schema(token, entity_name, ENTITY_VERSION, None)
+                    meta = cyoda_repository.get_meta(token, entity_name, ENTITY_VERSION)
+                    cyoda_repository.save(meta=meta, entity=json.loads(entity))
+                    #cyoda_repository._lock_entity_schema(token, entity_name, ENTITY_VERSION, None)
         except Exception as e:
             print(f"Error reading {json_file}: {e}")

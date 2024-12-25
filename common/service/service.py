@@ -50,12 +50,17 @@ class EntityServiceImpl(EntityService):
         """Retrieve multiple items based on their IDs."""
         resp = self._find_by_criteria(token, entity_model, entity_version, condition)
         return resp
-
+#[{'entityIds': ['90c591ca-4df6-11b2-b48d-f20bdf753a91'], 'transactionId': '5e245bd0-c2f2-11ef-b48d-f20bdf753a91'}]
     def add_item(self, token: str, entity_model: str, entity_version: str, entity: Any) -> Any:
         """Add a new item to the repository."""
         meta = self._repository.get_meta(token, entity_model, entity_version)
         resp = self._repository.save(meta, entity)
-        return resp
+        #todo
+        try:
+            return resp[0]['entityIds'][0]
+        except Exception as e:
+            logger.exception(e)
+            return resp
 
     def update_item(self, token: str, entity_model: str, entity_version: str, technical_id: str, entity: Any, meta: Any) -> Any:
         """Update an existing item in the repository."""

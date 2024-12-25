@@ -25,3 +25,4 @@ mock_ai=True
 MOCK_AI = os.getenv("MOCK_AI",  "false")
 CONNECTION_AI_API = os.getenv("CONNECTION_AI_API")
 RANDOM_AI_API = os.getenv("RANDOM_AI_API")
+TRINO_AI_API = os.getenv("TRINO_AI_API")

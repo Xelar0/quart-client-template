@@ -389,7 +389,7 @@ class CyodaRepository(CrudRepository):
         path = f"entity/TREE/{uuid}"
         response = send_get_request(meta["token"], API_URL, path=path)
         logger.info(response.json())
-        return response
+        return response.json()
 
     def _get_all_entities(self, meta):
         path = f"entity/TREE/{meta["entity_model"]}/{meta["entity_version"]}"
