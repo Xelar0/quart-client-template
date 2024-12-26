@@ -21,6 +21,9 @@ def process_name(meta, data): //process function can accept only these parameter
 
 
 def data_aggregation_process_name(meta, data):
+    base_dir = os.path.abspath(os.path.join(__file__, "../../../"))
+    aggregated_data_entity_path = os.path.join(base_dir, 'aggregated_data_entity',
+                                                   'aggregated_data_entity.json')
     aggregated_data_entity_schema = read_json_file(aggregated_data_entity_path)
     # Make API call to AI service to generate aggregated data report based on schema
     aggregated_data = ai_service.ai_chat(token=meta["token"],
