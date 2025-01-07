@@ -50,6 +50,7 @@ def init_workflow(entity_dir, token):
                 "chat_id": CHAT_ID,
                 "class_name": "com.cyoda.tdb.model.treenode.TreeNodeEntity"
             })
+            send_post_request(token, CYODA_AI_URL, "/api/v1/workflows/initial", data)
             resp = send_post_request(token=token, api_url=CYODA_AI_URL, path="%s/chat" % API_V_WORKFLOWS_, data=data)
             return resp.json()
 
